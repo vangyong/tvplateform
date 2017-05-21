@@ -23,7 +23,7 @@ public class TestJava8New {
 		a.add("b");
 		a.add("c");
 		a.add("d");
-		a.forEach((e)->System.out.println(e));
+		//a.forEach((e)->System.out.println(e));
 		
 		
 	}
