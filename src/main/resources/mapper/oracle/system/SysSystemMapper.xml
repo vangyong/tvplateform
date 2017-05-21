@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisesoft.system.domain.SysSystem">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true"/>
+
+	<resultMap id="BaseResultMap" type="com.wisesoft.system.domain.vo.SysSystemVo">
+		<id column="SYSTEMID" property="systemId" jdbcType="VARCHAR" />
+		<result column="SYSTEMNAME" property="systemName" jdbcType="VARCHAR" />
+		<result column="SYSTEMCODE" property="systemCode" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+		<result column="DELETESTATUS" property="deleteStatus" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		SYSTEMID as systemId,
+		SYSTEMNAME as systemName,
+		SYSTEMCODE as systemCode,
+		DESCRIPTION as description,
+		CREATETIME as createTime,
+		DELETESTATUS as deleteStatus
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="systemId != null"> AND SYSTEMID = #{systemId}</if>
+				<if test="systemName != null">AND SYSTEMNAME = #{systemName}</if>
+				<if test="systemCode != null">AND SYSTEMCODE = #{systemCode}</if>
+				<if test="description != null">AND DESCRIPTION = #{description}</if>
+				<if test="createTime != null">AND CREATETIME = #{createTime}</if>
+				<if test="deleteStatus != null">AND DELETESTATUS = #{deleteStatus}</if>
+				<!-- 模糊查询 -->
+				<if test="systemName != null">AND SYSTEMNAME LIKE CONCAT("%",#{systemNameLike},"%")</if>
+			</trim>
+		</where>
+		<if test="sorting != null">ORDER BY ${sorting}</if>
+		<!-- <if test="offset != null and limit != null">
+			LIMIT #{offset}, #{limit}
+		</if> -->
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT COUNT(SYSTEMID)
+		FROM SYS_SYSTEM
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_SYSTEM
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_SYSTEM
+		WHERE SYSTEMID = #{systemId}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.String">
+		DELETE FROM SYS_SYSTEM
+		WHERE SYSTEMID = #{systemId}
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM SYS_SYSTEM
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" parameterType="com.wisesoft.system.domain.SysSystem">
+		INSERT INTO SYS_SYSTEM(
+			SYSTEMID,
+			SYSTEMNAME,  
+			SYSTEMCODE, 
+			DESCRIPTION,
+			CREATETIME,
+			DELETESTATUS
+		)
+		values (
+			#{systemId,jdbcType=VARCHAR}, 
+			#{systemName,jdbcType=VARCHAR},  	  
+			#{systemCode,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{createTime,jdbcType=DATE},
+			#{deleteStatus,jdbcType=DECIMAL}
+		)
+	</insert>
+	
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.wisesoft.system.domain.SysSystem">
+		UPDATE SYS_SYSTEM
+		<set>
+			<if test="systemId != null">SYSTEMID = #{systemId},</if>
+			<if test="systemName != null">SYSTEMNAME = #{systemName},</if>
+			<if test="systemCode != null">SYSTEMCODE = #{systemCode},</if>
+			<if test="description != null">DESCRIPTION = #{description},</if>
+			<if test="createTime != null">CREATETIME = #{createTime},</if>
+			<if test="deleteStatus != null">DELETESTATUS = #{deleteStatus},</if>
+		</set>
+		WHERE SYSTEMID = #{systemId}
+	</update>
+	
+	<update id="updateById" parameterType="com.wisesoft.system.domain.SysSystem">
+		UPDATE SYS_SYSTEM
+		SET SYSTEMID = #{systemId},
+		SYSTEMNAME = #{systemName},
+		SYSTEMCODE = #{systemCode},
+		DESCRIPTION = #{description},
+		CREATETIME = #{createTime},
+		DELETESTATUS = #{deleteStatus},
+		WHERE SYSTEMID = #{systemId}
+	</update>
+	
+	<!-- 查询全部 -->
+	<select id="selectSystems" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_SYSTEM
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+</mapper>

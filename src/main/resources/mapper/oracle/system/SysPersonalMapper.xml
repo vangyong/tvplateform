@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisesoft.system.domain.SysPersonal">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true"/>
+
+	<resultMap id="BaseResultMap" type="com.wisesoft.system.domain.vo.SysPersonalVo">
+		<id column="USERID" property="userId" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="userName" jdbcType="VARCHAR" />
+		<result column="NICKNAME" property="nickName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="MOBILENUMBER" property="mobileNumber" jdbcType="VARCHAR" />
+		<result column="GENDER" property="gender" jdbcType="VARCHAR" />
+		<result column="BORNADDRESSID" property="bornAddressId" jdbcType="VARCHAR" />
+		<result column="BORNDATE" property="bornDate" jdbcType="DATE" />
+		<result column="WEIGHT" property="weight" jdbcType="DECIMAL" />
+		<result column="HEIGHT" property="height" jdbcType="DECIMAL" />
+		<result column="BLOODTYPE" property="bloodType" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="HOMEADDRESSID" property="homeAddressId" jdbcType="VARCHAR" />
+		<result column="GROUPID" property="groupId" jdbcType="VARCHAR" />
+		<result column="NATION" property="nation" jdbcType="VARCHAR" />
+		<result column="IDENTITYNUMBER" property="identityNumber" jdbcType="VARCHAR" />
+		<result column="CREATETIME" property="createTime" jdbcType="DATE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		USERID as userId,
+		LOGINNAME as loginName,
+		PASSWORD as password,
+		MOBILENUMBER as mobileNumber,
+		GENDER as gender,
+		BORNADDRESSID as bornAddressId,
+		BORNDATE as bornDate,
+		WEIGHT as weight,
+		HEIGHT as height,
+		BLOODTYPE as bloodType,
+		EMAIL as email, 
+		HOMEADDRESSID as homeAddressId,
+		GROUPID as groupId,
+		NATION as nation,
+		IDENTITYNUMBER as identityNumber,
+		CREATETIME as createTime
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="userId != null"> AND USERID = #{userId}</if>
+				<if test="loginName != null">AND LOGINNAME = #{loginName}</if>
+				<if test="password != null">AND PASSWORD = #{password}</if>
+				<if test="nickName != null">AND NICKNAME = #{nickName}</if>
+				<if test="mobileNumber != null">AND MOBILENUMBER = #{mobileNumber}</if>
+				<if test="gender != null">AND GENDER = #{gender}</if>
+				<if test="bornAddressId != null">AND BORNADDRESSID = #{bornAddressId}</if>
+				<if test="bornDate != null">AND BORNDATE = #{bornDate}</if>
+				<if test="weight != null">AND WEIGHT = #{weight}</if>
+				<if test="height != null">AND HEIGHT = #{height}</if>
+				<if test="bloodType != null">AND BLOODTYPE = #{bloodType}</if>
+				<if test="email != null">AND EMAIL = #{email}</if>
+				<if test="homeAddressId != null">AND HOMEADDRESSID = #{homeAddressId}</if>
+				
+				<!-- 模糊查询 -->
+				<if test="userNameLike != null">AND NICKNAME LIKE CONCAT("%",#{userNameLike},"%")</if>
+			</trim>
+		</where>
+		<if test="sorting != null">ORDER BY ${sorting}</if>
+		<if test="offset != null and limit != null">
+			LIMIT #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT COUNT(USERID)
+		FROM SYS_USER
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_USER
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_USER
+		WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.String">
+		DELETE FROM SYS_USER
+		WHERE USERID = #{userId}
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM SYS_USER
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" parameterType="com.wisesoft.system.domain.SysUser">
+		INSERT INTO SYS_USER(
+			USERID,
+			USERNAME,  
+			LOGINNAME, 
+			PASSWORD,
+			MOBILENUMBER, 
+			GENDER,
+			BORNADDRESSID,
+			BORNDATE,
+			WEIGHT,
+			HEIGHT,
+			BLOODTYPE,
+			EMAIL,
+			HOMEADDRESSID,
+			GROUPID,
+			NATION,
+			IDENTITYNUMBER,
+			CREATETIME
+		)
+		values (
+			#{userId,jdbcType=VARCHAR}, 
+			#{userName,jdbcType=VARCHAR},  	  
+			#{loginName,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{mobileNumber,jdbcType=VARCHAR}, 
+			#{gender,jdbcType=VARCHAR},
+			#{bornAddressId,jdbcType=VARCHAR},
+			#{bornDate,jdbcType=DATE},
+			#{weight,jdbcType=DECIMAL},
+			#{height,jdbcType=DECIMAL},
+			#{bloodType,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR},
+			#{homeAddressId,jdbcType=VARCHAR},
+			#{groupId,jdbcType=VARCHAR},
+			#{nation,jdbcType=VARCHAR},
+			#{identityNumber,jdbcType=VARCHAR},
+			#{createTime,jdbcType=DATE}
+		)
+	</insert>
+	
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.wisesoft.system.domain.SysUser">
+		UPDATE SYS_USER
+		<set>
+			<if test="userName != null">USERNAME = #{userName},</if>
+			<if test="loginName != null">LOGINNAME = #{loginName},</if>
+			<if test="password != null">PASSWORD = #{password},</if>
+			<if test="mobileNumber != null">MOBILENUMBER = #{mobileNumber},</if>
+			<if test="gender != null">GENDER = #{gender},</if>
+			<if test="bornAddressId != null">BORNADDRESSID = #{bornAddressId},</if>
+			<if test="bornDate != null">BORNDATE = #{bornDate},</if>
+			<if test="weight != null">WEIGHT = #{weight},</if>
+			<if test="height != null">HEIGHT = #{height},</if>
+			<if test="bloodType != null">BLOODTYPE = #{bloodType},</if>
+			<if test="email != null">EMAIL = #{email},</if>
+			<if test="homeAddressId != null">HOMEADDRESSID = #{homeAddressId},</if>
+			<if test="groupId != null">GROUPID = #{groupId},</if>
+			<if test="nation != null">NATION = #{nation},</if>
+			<if test="identityNumber != null">IDENTITYNUMBER = #{identityNumber},</if>
+			<if test="createTime != null">CREATETIME = #{createTime},</if>
+		</set>
+		WHERE USERID = #{userId}
+	</update>
+	
+	<update id="updateById" parameterType="com.wisesoft.system.domain.SysUser">
+		UPDATE SYS_USER
+		SET USERNAME = #{userName},
+		LOGINNAME = #{loginName},
+		PASSWORD = #{password},
+		MOBILENUMBER = #{mobileNumber},
+		GENDER = #{gender},
+		BORNADDRESSID = #{bornAddressId},
+		BORNDATE = #{bornDate},
+		WEIGHT = #{weight},
+		HEIGHT = #{height},
+		BLOODTYPE = #{bloodType},
+		EMAIL = #{email},
+		HOMEADDRESSID = #{homeAddressId},
+		GROUPID = #{groupId},
+		NATION = #{nation},
+		IDENTITYNUMBER = #{identityNumber},
+		CREATETIME = #{createTime}
+		WHERE USERID = #{userId}
+	</update>
+	
+	<!-- 测试查询 -->
+	<select id="testSelectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+</mapper>

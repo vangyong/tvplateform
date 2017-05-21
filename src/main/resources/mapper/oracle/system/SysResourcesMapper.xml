@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisesoft.system.domain.SysResources">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true"/>
+
+	<resultMap id="BaseResultMap" type="com.wisesoft.system.domain.vo.SysResourcesVo">
+		<id column="RESOURCESID" property="resourcesId" jdbcType="VARCHAR" />
+		<result column="RESOURCESNAME" property="resourcesName" jdbcType="VARCHAR" />
+		<result column="PARENTID" property="parentId" jdbcType="VARCHAR" />
+		<result column="RESOURCESCODE" property="resourcesCode" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="RESOURCESURL" property="resourcesUrl" jdbcType="VARCHAR" />
+		<result column="LEVEL" property="level" jdbcType="VARCHAR" />
+		<result column="ICON" property="icon" jdbcType="VARCHAR" />
+		<result column="ISHIDE" property="isHide" jdbcType="DECIMAL" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="DELETESTATUS" property="deleteStatus" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		RESOURCESID as resourcesId,
+		RESOURCESNAME as resourcesName,
+		PARENTID as parentId,
+		RESOURCESCODE as resourcesCode,
+		TYPE as type,
+		RESOURCESURL as resourcesUrl,
+		LEVEL as level,
+		ICON as icon,
+		ISHIDE as isHide,
+		DESCRIPTION as description,
+		DELETESTATUS as deleteStatus
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="resourcesId != null"> AND RESOURCESID = #{resId}</if>
+				<if test="resourcesName != null">AND RESOURCESNAME = #{resName}</if>
+				<if test="parentId != null">AND PARENTID = #{parentId}</if>
+				<if test="resourcesCode != null">AND RESOURCESCODE = #{resCode}</if>
+				<if test="type != null">AND TYPE = #{type}</if>
+				<if test="resourcesUrl != null">AND RESOURCESURL = #{resUrl}</if>
+				<if test="level != null">AND LEVEL = #{resLevel}</if>
+				<if test="icon != null">AND ICON = #{icon}</if>
+				<if test="isHide != null">AND ISHIDE = #{isHide}</if>
+				<if test="description != null">AND DESCRIPTION = #{description}</if>
+				<if test="deleteStatus != null">AND DELETESTATUS = #{deleteStatus}</if>
+				<!-- 模糊查询 -->
+				<!-- <if test="systemName != null">AND SYSTEMNAME LIKE CONCAT("%",#{systemNameLike},"%")</if> -->
+			</trim>
+		</where>
+		<if test="sorting != null">ORDER BY ${sorting}</if>
+		<!-- <if test="offset != null and limit != null">
+			LIMIT #{offset}, #{limit}
+		</if> -->
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT COUNT(RESID)
+		FROM SYS_RESOURCES
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_RESOURCES
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_RESOURCES
+		WHERE RESID = #{resourcesId}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.String">
+		DELETE FROM SYS_RESOURCES
+		WHERE RESID = #{resourcesId}
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		DELETE FROM SYS_RESOURCES
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" parameterType="com.wisesoft.system.domain.SysResources">
+		INSERT INTO SYS_RESOURCES(
+			RESOURCESID,
+			RESOURCESNAME,  
+			PARENTID, 
+			RESOURCESCODE,
+			TYPE,
+			RESOURCESURL,
+			LEVEL,
+			ICON,
+			ISHIDE,
+			DESCRIPTION,
+			DELETESTATUS
+		)
+		values (
+			#{resourcesId,jdbcType=VARCHAR}, 
+			#{resourcesName,jdbcType=VARCHAR},  	  
+			#{parentId,jdbcType=VARCHAR},
+			#{resourcesCode,jdbcType=VARCHAR},
+			#{type,jdbcType=VARCHAR},
+			#{resourcesUrl,jdbcType=VARCHAR},
+			#{level,jdbcType=VARCHAR},
+			#{icon,jdbcType=VARCHAR},
+			#{isHide,jdbcType=DECIMAL},
+			#{description,jdbcType=VARCHAR},
+			#{deleteStatus,jdbcType=DECIMAL}
+		)
+	</insert>
+	
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.wisesoft.system.domain.SysResources">
+		UPDATE SYS_RESOURCES
+		<set>
+			<if test="resourcesId != null">RESOURCESID = #{resourcesId},</if>
+			<if test="resourcesName != null">RESOURCESNAME = #{resourcesName},</if>
+			<if test="parentId != null">PARENTID = #{parentId},</if>
+			<if test="resourcesCode != null">RESOURCESCODE = #{resourcesCode},</if>
+			<if test="type != null">TYPE = #{type},</if>
+			<if test="resourcesUrl != null">RESOURCESURL = #{resourcesUrl},</if>
+			<if test="level != null">LEVEL = #{level},</if>
+			<if test="icon != null">ICON = #{icon},</if>
+			<if test="isHide != null">ISHIDE = #{isHide},</if>
+			<if test="description != null">DESCRIPTION = #{description},</if>
+			<if test="deleteStatus != null">DELETESTATUS = #{deleteStatus},</if>
+		</set>
+		WHERE RESID = #{resId}
+	</update>
+	
+	<update id="updateById" parameterType="com.wisesoft.system.domain.SysResources">
+		UPDATE SYS_RESOURCES
+		SET RESOURCESID = #{resourcesId},
+		RESOURCESNAME = #{resourcesName},
+		PARENTID = #{parentId},
+		RESOURCESCODE = #{resourcesCode},
+		TYPE = #{type},
+		RESOURCESURL = #{resourcesUrl},
+		RLEVEL = #{level},
+		ICON = #{icon},
+		ISHIDE = #{isHide},
+		DESCRIPTION = #{description},
+		DELETESTATUS = #{deleteStatus},
+		WHERE RESOURCESID = #{resourcesId}
+	</update>
+	
+	<!-- 查询全部 -->
+	<select id="selectResources" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_RESOURCES
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+</mapper>
