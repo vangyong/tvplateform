@@ -2,14 +2,6 @@ package com.wisesoft.system.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import com.wisesoft.frame.core.service.BaseService;
-import com.wisesoft.system.domain.SysUser;
-import com.wisesoft.system.domain.query.SysGroupUserQuery;
-import com.wisesoft.system.domain.vo.SysGroupUserVo;
-import com.wisesoft.system.domain.vo.SysResourcesVo;
 import com.wisesoft.system.domain.vo.SysSystemVo;
 
 /**

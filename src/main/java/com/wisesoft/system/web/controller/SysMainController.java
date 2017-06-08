@@ -17,21 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.wisesoft.frame.core.util.MenuUtil;
 import com.wisesoft.frame.core.util.TreeObject;
-import com.wisesoft.frame.core.util.TreeUtil;
 import com.wisesoft.frame.core.web.domain.Result;
 import com.wisesoft.frame.core.web.domain.Result.Status;
-import com.wisesoft.system.domain.SysUser;
-import com.wisesoft.system.domain.query.SysUserQuery;
 import com.wisesoft.system.domain.vo.MenuVo;
-import com.wisesoft.system.domain.vo.SysGroupUserVo;
-import com.wisesoft.system.domain.vo.SysResourcesVo;
+import com.wisesoft.system.domain.vo.SysResourceVo;
 import com.wisesoft.system.domain.vo.SysSystemVo;
-import com.wisesoft.system.domain.vo.SysUserVo;
-import com.wisesoft.system.service.SysResourcesService;
+import com.wisesoft.system.service.SysResourceService;
 import com.wisesoft.system.service.SysSystemService;
 import com.wisesoft.system.service.SysUserService;
-import com.wisesoft.system.web.parameter.LoginParameter;
-import com.wisesoft.system.web.parameter.RegisterParameter;
 import com.wisesoft.system.web.parameter.ResourcesParameter;
 import com.wisesoft.system.web.parameter.SystemParameter;
 
@@ -43,7 +36,7 @@ public class SysMainController {
 	private SysUserService sysUserService;
 	
 	@Autowired
-	private SysResourcesService sysResourcesService;
+	private SysResourceService sysResourcesService;
 	
 	@Autowired
 	private SysSystemService sysSystemService;
@@ -51,7 +44,6 @@ public class SysMainController {
 	/**
 	 * main主页
 	 * 
-	 * @param request
 	 * @return
 	 * @throws Exception
 	 */
@@ -67,15 +59,15 @@ public class SysMainController {
 					consumes = MediaType.APPLICATION_JSON_VALUE,
 					headers="Content-Type=application/json")
 	public List<MenuVo> getMenus(@RequestBody ResourcesParameter parameter) {
-		List<SysResourcesVo> resourcesList =  sysResourcesService.queryResources();
+		List<SysResourceVo> resourcesList =  sysResourcesService.queryResources();
 		List<MenuVo> menuVos = new ArrayList<MenuVo>();
 		 if(null!=resourcesList&&resourcesList.size()>0){
 			List<TreeObject> treeObjects = new ArrayList<TreeObject>();
-			for(SysResourcesVo resourcesVo:resourcesList){
+			for(SysResourceVo resourcesVo:resourcesList){
 				MenuVo menuVo = new MenuVo();
-				menuVo.setId(resourcesVo.getResourcesId());
+				menuVo.setId(resourcesVo.getResourceId());
 				menuVo.setParentId(resourcesVo.getParentId());
-				menuVo.setText(resourcesVo.getResourcesName());
+				menuVo.setText(resourcesVo.getResourceName());
 				menuVo.setIcon(resourcesVo.getIcon());
 				menuVos.add(menuVo);
 				

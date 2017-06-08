@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.wisesoft.frame.core.dao.impl.BaseDaoImpl;
 import com.wisesoft.system.dao.SysSystemDao;
 import com.wisesoft.system.domain.SysSystem;
-import com.wisesoft.system.domain.vo.SysResourcesVo;
 import com.wisesoft.system.domain.vo.SysSystemVo;
 
 /**

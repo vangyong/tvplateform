@@ -17,7 +17,6 @@
 		SYSTEMNAME as systemName,
 		SYSTEMCODE as systemCode,
 		DESCRIPTION as description,
-		CREATETIME as createTime,
 		DELETESTATUS as deleteStatus
 	</sql>
 	
@@ -29,7 +28,6 @@
 				<if test="systemName != null">AND SYSTEMNAME = #{systemName}</if>
 				<if test="systemCode != null">AND SYSTEMCODE = #{systemCode}</if>
 				<if test="description != null">AND DESCRIPTION = #{description}</if>
-				<if test="createTime != null">AND CREATETIME = #{createTime}</if>
 				<if test="deleteStatus != null">AND DELETESTATUS = #{deleteStatus}</if>
 				<!-- 模糊查询 -->
 				<if test="systemName != null">AND SYSTEMNAME LIKE CONCAT("%",#{systemNameLike},"%")</if>
@@ -83,7 +81,6 @@
 			SYSTEMNAME,  
 			SYSTEMCODE, 
 			DESCRIPTION,
-			CREATETIME,
 			DELETESTATUS
 		)
 		values (
@@ -91,7 +88,6 @@
 			#{systemName,jdbcType=VARCHAR},  	  
 			#{systemCode,jdbcType=VARCHAR},
 			#{description,jdbcType=VARCHAR},
-			#{createTime,jdbcType=DATE},
 			#{deleteStatus,jdbcType=DECIMAL}
 		)
 	</insert>
@@ -105,7 +101,6 @@
 			<if test="systemName != null">SYSTEMNAME = #{systemName},</if>
 			<if test="systemCode != null">SYSTEMCODE = #{systemCode},</if>
 			<if test="description != null">DESCRIPTION = #{description},</if>
-			<if test="createTime != null">CREATETIME = #{createTime},</if>
 			<if test="deleteStatus != null">DELETESTATUS = #{deleteStatus},</if>
 		</set>
 		WHERE SYSTEMID = #{systemId}
@@ -117,7 +112,6 @@
 		SYSTEMNAME = #{systemName},
 		SYSTEMCODE = #{systemCode},
 		DESCRIPTION = #{description},
-		CREATETIME = #{createTime},
 		DELETESTATUS = #{deleteStatus},
 		WHERE SYSTEMID = #{systemId}
 	</update>
