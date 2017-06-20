@@ -7,7 +7,7 @@
 </style> 
 <script type="text/javascript" src="./resources/js/common/webtoolkit.base64.js"></script>
 <script type="text/javascript" src="./resources/plugins/jquery/1.11.0/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="./resources/js/index.js" charset="utf-8"></script>
+<script type="text/javascript" src="./resources/js/test/index.js" charset="utf-8"></script>
 </head>
 <body>
 <div>

@@ -13,71 +13,7 @@
     <script type="text/javascript" src='<%=basePath %>/resources/js/system/main/index.js'></script>
 
     <script type="text/javascript">
-        var _menus = {
-            system: [{
-                "menuid": "10",
-                "icon": "icon-sys",
-                "menuname": "基础数据",
-                "menus": [{
-                    "menuid": "111",
-                    "menuname": "基础数据1",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "113",
-                    "menuname": "基础数据12",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "115",
-                    "menuname": "基础数据13",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "117",
-                    "menuname": "基础数据14",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "119",
-                    "menuname": "基础数据15",
-                    "icon": "icon-nav",
-                    "url": "em/enterpriseChannelObtend.action"
-                }]
-            }, {
-                "menuid": "20",
-                "icon": "icon-sys",
-                "menuname": "测试一",
-                "menus": [{
-                    "menuid": "211",
-                    "menuname": "测试一11",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "213",
-                    "menuname": "测试一22",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }]
-            }],
-            contract: [{
-                "menuid": "20",
-                "icon": "icon-sys",
-                "menuname": "积分管理",
-                "menus": [{
-                    "menuid": "211",
-                    "menuname": "积分用途",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }, {
-                    "menuid": "213",
-                    "menuname": "积分调整",
-                    "icon": "icon-nav",
-                    "url": "#"
-                }]
-
-            }]
-        };
+        
         //设置登录窗口
         function openPwd() {
             $('#w').window({
@@ -189,8 +125,9 @@
 <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">
     <div id='wnav' class="easyui-accordion" fit="true" border="false">
         <!--  导航内容 -->
-        <ul id="leftmenu" class="easyui-tree" data-options="url:'getMenus',method:'get',animate:true,lines:true"
-            style="padding:0px; margin:0px;list-type:none; float:left; margin-left:40px;">
+        <!-- <ul id="leftmenu" class="easyui-tree" data-options="url:'getMenus',method:'get',animate:true,lines:true"
+            style="padding:0px; margin:0px;list-type:none; float:left; margin-left:40px;"> -->
+        <ul id="leftmenu" class="easyui-tree"style="padding:0px; margin:0px;list-type:none; float:left; margin-left:40px;">    
             <!-- <li ><a class="active" name="basic" href="javascript:;" title="基础数据">基础数据</a></li>
             <li><a name="point" href="javascript:;" title="积分管理">积分管理</a></li> -->
         </ul>

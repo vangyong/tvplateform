@@ -4,7 +4,7 @@
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true"/>
 
 	<resultMap id="BaseResultMap" type="com.wisesoft.system.domain.vo.SysResourceVo">
-		<id column="RESOURCEID" property="resourcesId" jdbcType="VARCHAR" />
+		<id column="RESOURCEID" property="resourceId" jdbcType="VARCHAR" />
 		<result column="RESOURCENAME" property="resourceName" jdbcType="VARCHAR" />
 		<result column="PARENTID" property="parentId" jdbcType="VARCHAR" />
 		<result column="RESOURCECODE" property="resourceCode" jdbcType="VARCHAR" />

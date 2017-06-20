@@ -1,24 +1,29 @@
-﻿$(function() {
-	getSystems();
+﻿var menus = [];
+$(function() {
+	//getSystems();
 	getMenus();
 	
-	//tabClose();
-	//tabCloseEven();
-	/*$('#css3menu a').click(function() {
+	
+	
+	/*tabClose();
+	tabCloseEven();
+	$('#css3menu a').click(function() {
 		$('#css3menu a').removeClass('active');
 		$(this).addClass('active');
 		var d = _menus[$(this).attr('name')];
 		clearNav();
 		addNav(d);
 		initLeftMenu();
-	});
-	 */
+	});*/
+	 
 	// 导航菜单绑定初始化
 	/*$("#wnav").accordion( {
 		animate : false
-	});
+	});*/
+	
+	//initSystemMenu(menus);
 
-	var firstMenuName = $('#css3menu a:first').attr('name');
+	/*var firstMenuName = $('#css3menu a:first').attr('name');
 	addNav(_menus[firstMenuName]);
 	initLeftMenu();*/
 });
@@ -61,7 +66,9 @@ function getMenus() {
 		contentType: "application/json",
 		success : function(data) {
 			if (data) { 
-				initLeftMenu(data)
+				menus = data;
+				initSystemMenu(data);
+				//initLeftMenu(data)
 			} else {
 				alert("Call Failed");
 			}
@@ -116,11 +123,13 @@ function initSystemMenu(data) {
 		data[i] = data[i];
 		if(i==0){
 			buffer = buffer+"<li><a class='active' name='"+data[i].text+"'"+" href='javascript:;' title='"+data[i].text+"'"+">"+data[i].text+"</a></li>";
+			initLeftMenu(data[i].children);
 		}else{
 			buffer = buffer+"<li><a name='"+data[i].id+"'"+" href='javascript:;' title='"+data[i].text+"'"+">"+data[i].text+"</a></li>";
 		}
 	}
 	$('#css3menu').append(buffer);
+	
 }
 
 // 初始化左侧
@@ -131,9 +140,9 @@ function initLeftMenu(data) {
 	for(var i=0;i<data.length;i++){
 		data[i] = data[i];
 		if(i==0){
-			buffer = buffer+"<li><a class='active' name='"+data[i].menuid+"'"+" href='javascript:;' title='"+data[i].menuname+"'"+">"+data[i].menuname+"</a></li>";
+			buffer = buffer+"<li><a class='active' name='"+data[i].text+"'"+" href='javascript:;' title='"+data[i].text+"'"+">"+data[i].text+"</a></li>";
 		}else{
-			buffer = buffer+"<li><a name='"+data[i].menuid+"'"+" href='javascript:;' title='"+data[i].menuname+"'"+">"+data[i].menuname+"</a></li>";
+			buffer = buffer+"<li><a name='"+data[i].text+"'"+" href='javascript:;' title='"+data[i].text+"'"+">"+data[i].text+"</a></li>";
 		}
 	}
 	$('#leftmenu').append(buffer);
@@ -164,7 +173,7 @@ function hoverMenuItem() {
 // 获取左侧导航的图标
 function getIcon(menuid) {
 	var icon = 'icon ';
-	$.each(_menus, function(i, n) {
+	$.each(menus, function(i, n) {
 		$.each(n, function(j, o) {
 			$.each(o.menus, function(k, m){
 				if (m.menuid == menuid) {
