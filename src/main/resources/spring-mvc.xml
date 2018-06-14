@@ -13,6 +13,17 @@
 >
 
 
+<mvc:interceptors>  
+   <!--  使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求   -->
+    <!-- <bean class="com.bybo.aca.web.interceptor.Login"/> -->   
+    <mvc:interceptor>  
+        <!-- 进行拦截：/**表示拦截所有controller -->
+        <mvc:mapping path="/**" />
+        <mvc:exclude-mapping path="/index.html"/>
+        <bean class="com.wisesoft.portal.web.interceptor.WeChatInterceptor"/>  
+    </mvc:interceptor>  
+</mvc:interceptors>     
+
 	<!-- XML转码器 -->
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 
