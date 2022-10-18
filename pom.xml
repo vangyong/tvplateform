@@ -19,7 +19,7 @@
 		<mybatis-ehcache-version>1.0.0</mybatis-ehcache-version>
 		<ehcache-version>2.6.8</ehcache-version>
 		<freemarker-version>2.3.20</freemarker-version>
-		<json-version>2.3.2</json-version>
+		<json-version>2.13.4.1</json-version>
 		<aspectj-version>1.7.4</aspectj-version>
 	</properties>
 
